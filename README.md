@@ -20,7 +20,7 @@ create-react-app org-chart-app
 ```
 
 ## Remove unecessary files
-in src folder just leave App.js and index.js
+in src folder just leave App.js and index.js. 
 Remove the references to deleted documents in both files.
 
 
@@ -55,5 +55,30 @@ class App extends Component {
 export default App;
 ```
 
-# Start the Project
+## Install React-FlexBox-Grid
+Material ui will provide the style for our elements. FlexBox grid will give us the structure of the pages
+```sh
+npm install --save react-flexbox-grid
+```
+
+## Organize folder structure
+We will use the distincion between container and presentation components, so let's go ahead and create these folders. We will also move App.js inside containers folder (make sure you change the refence to App.js inside src/index.js.
+```javascript
+import App from './containers/App';
+```
+```
+-src
+  -components
+  -containers
+    -App.js
+  -index.js
+```
+
+
+
+
+
+
+
+
 
