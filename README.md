@@ -1,6 +1,4 @@
-# org-app-tutorial
-
-# Tutorial
+# Org App Tutorial
 
 # Plan the app
 The Org App is a finctional company employee DB.
@@ -12,7 +10,7 @@ For the UI we will use Material-ui and react-flexbox-grid.
 
 Is usefull to sketch the app before moving forward, if nothing else it helps to start to think how to irganize the app in components, how the state may look like and the actions that the app will allow.
 
-![app sketch] (https://github.com/andreagulp/JS-Playground/blob/master/reactjs/org-chart-app/img/20170501_002133.jpg)
+![app sketch](https://github.com/andreagulp/JS-Playground/blob/master/reactjs/org-chart-app/img/20170501_002133.jpg "Logo Title Text 1")
 
 # Set up the Project
 
