@@ -63,9 +63,7 @@ npm install --save react-flexbox-grid
 
 ## Organize folder structure
 We will use the distincion between container and presentation components, so let's go ahead and create these folders. We will also move App.js inside containers folder (make sure you change the refence to App.js inside src/index.js.
-```javascript
-import App from './containers/App';
-```
+
 ```
 -src
   -components
@@ -73,6 +71,17 @@ import App from './containers/App';
     -App.js
   -index.js
 ```
+
+Then in src/index.js change the import of App.js to:
+```javascript
+import App from './containers/App';
+```
+
+# Create Header.js
+
+Our app will have an Header. We are using material ui App Bar.
+
+# 
 
 
 
