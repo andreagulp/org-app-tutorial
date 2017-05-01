@@ -302,6 +302,9 @@ export default Team
 ```
 
 In src/containers/App.js, pass teams as prop
+```javascript
+import TeamList from '../components/TeamList';
+```
 
 ```javascript
   <Col xs={6} md={6}>
