@@ -1,7 +1,6 @@
 # Organisation App Tutorial
 
 # Table Of Content
-- [Organisation App Tutorial](#organisation-app-tutorial)
 - [Pre requisite](#pre-requisite)
 - [Plan the app](#plan-the-app)
 - [Set up the Project](#set-up-the-project)
@@ -15,7 +14,14 @@
 - [Create Header.js](#create-headerjs)
 - [Create a mock DB file with teams](#create-a-mock-db-file-with-teams)
 - [Display Teams](#display-teams)
+- [Implement onClick event that display the team detail](#implement-onclick-event-that-display-the-team-detail)
+  * [Implement selectedTeamId](#implement-selectedteamid)
+  * [Show Team Detail in a separate component](#show-team-detail-in-a-separate-component)
+- [Wrap up](#wrap-up)
+  * [Commit the code to GitHub](#commit-the-code-to-github)
+
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 
 # Pre requisite
 - install node.js / npm
