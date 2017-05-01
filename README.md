@@ -7,14 +7,14 @@
 - IDE for code editing with some support for react / jsx (e.g. atom, vs code, sublime, etc...)
 
 # Plan the app
-The Org App is a finctional company employee DB.
-User can create new team and add team member to it.
-Teams and team members will be added to a cloudant DB.
-User will be able to filter both teams and employee.
+The Org App is a finctional company employee DB. 
+User can create new team and add team member to it. 
+Teams and team members will be added to a cloudant DB. 
+User will be able to filter both teams and employee. 
 
-For the UI we will use Material-ui and react-flexbox-grid.
+For the UI we will use Material-ui and react-flexbox-grid. 
 
-Is usefull to sketch the app before moving forward, if nothing else it helps to start to think how to irganize the app in components, how the state may look like and the actions that the app will allow.
+Is usefull to sketch the app before moving forward, if nothing else it helps to start to think how to irganize the app in components, how the state may look like and the actions that the app will allow. 
 
 ![app sketch](https://github.com/andreagulp/JS-Playground/blob/master/reactjs/org-chart-app/img/20170501_002133.jpg "Logo Title Text 1")
 
@@ -27,21 +27,21 @@ create-react-app org-chart-app
 
 ## Remove unecessary files
 in src folder just leave App.js and index.js. 
-Remove the references to deleted documents in both files.
+Remove the references to deleted documents in both files. 
 
 
 ## Install Material-ui
-Install material-ui
+Install material-ui 
 ```sh
 npm i --save material-ui react-tap-event-plugin
 ```
-to be able to use it we need to set in src/index.js
+to be able to use it we need to set in src/index.js 
 ```javascript
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 ```
 
-and also wrap your full application in material ui. In this case App.js will contain the while application
+and also wrap your full application in material ui. In this case App.js will contain the while application 
 
 ```javascript
 import React, { Component } from 'react';
@@ -62,7 +62,7 @@ export default App;
 ```
 
 ## Install React-FlexBox-Grid
-Material ui will provide the style for our elements. FlexBox grid will give us the structure of the pages
+Material ui will provide the style for our elements. FlexBox grid will give us the structure of the pages 
 ```sh
 npm install --save react-flexbox-grid
 ```
@@ -73,7 +73,7 @@ npm start
 ```
 
 ## Organize folder structure
-We will use the distincion between container and presentation components, so let's go ahead and create these folders. We will also move App.js inside containers folder (make sure you change the refence to App.js inside src/index.js.
+We will use the distincion between container and presentation components, so let's go ahead and create these folders. We will also move App.js inside containers folder (make sure you change the refence to App.js inside src/index.js. 
 
 ```
 -src
@@ -83,15 +83,15 @@ We will use the distincion between container and presentation components, so let
   -index.js
 ```
 
-Then in src/index.js change the import of App.js to:
+Then in src/index.js change the import of App.js to: 
 ```javascript
 import App from './containers/App';
 ```
 
 # Create Header.js
 
-Our app will have an Header. We are using material ui App Bar.
-Always remember to wire the components to our App.js container.
+Our app will have an Header. We are using material ui App Bar. 
+Always remember to wire the components to our App.js container. 
 
 In src/components/Header.js
 ```javascript
@@ -153,10 +153,10 @@ export default App;
 ```
 
 # Define Application layout
-I find it easier to start by defining the boxes where the element of the app will fit.
-We will introduce flex box now.
+I find it easier to start by defining the boxes where the element of the app will fit. 
+We will introduce flex box now. 
 
-We have already installed the module, so we just import it in App.js and create the layout.
+We have already installed the module, so we just import it in App.js and create the layout. 
 
 ```javascript
 import React, { Component } from 'react';
@@ -191,12 +191,12 @@ export default App;
 ```
 
 # Create a mock DB file with teams
-Let's create a file that will mock a db with teams and users information.
-In later stage we will replace this mock with a real cloudant DB.
-For the moment I just want to go ahead and create some other components before I start to work with a real DB and http calls.
+Let's create a file that will mock a db with teams and users information. 
+In later stage we will replace this mock with a real cloudant DB. 
+For the moment I just want to go ahead and create some other components before I start to work with a real DB and http calls. 
 
-For convinience I'll create a folder "src/data" to store the mock DBs.
-In src/data/teamsDB.js
+For convinience I'll create a folder "src/data" to store the mock DBs. 
+In src/data/teamsDB.js 
 ```javascript
 const TEAMS = [
   {
