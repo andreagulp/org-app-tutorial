@@ -202,7 +202,7 @@ In src/data/teamsDB.js
 ```javascript
 const TEAMS = [
   {
-    id: '001',
+    _id: '001',
     name: 'Team number 1',
     geo: 'EMEA',
     market: 'Italy',
@@ -211,7 +211,7 @@ const TEAMS = [
     isActive: true
   },
   {
-    id: '002',
+    _id: '002',
     name: 'Team number 2',
     geo: 'EMEA',
     market: 'France',
@@ -220,7 +220,7 @@ const TEAMS = [
     isActive: true
   },
   {
-    id: '003',
+    _id: '003',
     name: 'Team number 3',
     geo: 'EMEA',
     market: 'Italy',
@@ -250,7 +250,67 @@ If you open Chrome devopers tool and select react, you can inspect the component
 ![chrome dev tool with react extension](https://github.com/andreagulp/org-app-tutorial/blob/master/images/2017-05-01%2002_52_08-React%20App.png)
 
 
+# Display Teams
+We will create a TeamList component and a Team component to display them. So let's create both file in components folder.
 
+in src/components/TeamList.js
+```javascript
+import React from 'react';
+import {List} from 'material-ui/List';
+import Team from './Team';
+
+const TeamList = (props) => {
+  return (
+    <List>
+      {props.teams.map(team => {
+        return (
+          <Team
+            key={team._id}
+            team={team}
+          />
+        )
+      })}
+    </List>
+  )
+};
+export default TeamList
+```
+
+In src/components/Team.js
+```javascript
+import React, { Component } from 'react';
+import Divider from 'material-ui/Divider';
+import {ListItem} from 'material-ui/List';
+
+class Team extends Component {
+
+  render () {
+
+    return (
+        <div>
+          <ListItem
+            primaryText={this.props.team.name}
+            secondaryText={this.props.team.geo}
+            secondaryTextLines={1}
+          />
+          <Divider />
+        </div>
+    )
+  }
+};
+export default Team
+```
+
+In src/containers/App.js, pass teams as prop
+
+```javascript
+  <Col xs={6} md={6}>
+    <TeamList
+      teams={this.state.teams}
+    />
+  </Col>
+ ```
+ We are now displaying the teams in a list with some basic (but nice) style
 
 
 
