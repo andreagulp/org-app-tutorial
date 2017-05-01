@@ -88,6 +88,46 @@ Then in src/index.js change the import of App.js to:
 import App from './containers/App';
 ```
 
+
+# Define Application Grid layout
+I find it easier to start by defining the boxes where the element of the app will fit. 
+We will introduce flex box now. 
+
+We have already installed the module, so we just import it in App.js and create the layout. 
+
+```javascript
+import React, { Component } from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { Grid, Row, Col } from 'react-flexbox-grid';
+
+import Header from '../components/Header';
+
+class App extends Component {
+  render() {
+    return (
+      <MuiThemeProvider>
+        <Grid fluid>
+          <Row>
+            <Header />
+          </Row>
+          <Row>
+            <Col xs={6} md={6}>
+              <p>First Column with Team List</p>
+            </Col>
+            <Col xs={6} md={6}>
+              <p>Second Column with Team Details</p>
+            </Col>
+          </Row>
+        </Grid>
+      </MuiThemeProvider>
+    );
+  }
+}
+
+export default App;
+```
+
+
 # Create Header.js
 
 Our app will have an Header. We are using material ui App Bar. 
@@ -144,44 +184,6 @@ class App extends Component {
         <div>
           <Header />
         </div>
-      </MuiThemeProvider>
-    );
-  }
-}
-
-export default App;
-```
-
-# Define Application layout
-I find it easier to start by defining the boxes where the element of the app will fit. 
-We will introduce flex box now. 
-
-We have already installed the module, so we just import it in App.js and create the layout. 
-
-```javascript
-import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { Grid, Row, Col } from 'react-flexbox-grid';
-
-import Header from '../components/Header';
-
-class App extends Component {
-  render() {
-    return (
-      <MuiThemeProvider>
-        <Grid fluid>
-          <Row>
-            <Header />
-          </Row>
-          <Row>
-            <Col xs={6} md={6}>
-              <p>First Column with Team List</p>
-            </Col>
-            <Col xs={6} md={6}>
-              <p>Second Column with Team Details</p>
-            </Col>
-          </Row>
-        </Grid>
       </MuiThemeProvider>
     );
   }
