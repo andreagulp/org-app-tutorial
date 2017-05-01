@@ -332,6 +332,9 @@ import TeamList from '../components/TeamList';
  ```
  We are now displaying the teams in a list with some basic (but nice) style
 
+# Implement onClick event that display the team detail
+We want to allow the user to click a team card and display the team detail on the left side of the application.
+
 
 
 
