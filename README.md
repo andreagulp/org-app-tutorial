@@ -27,8 +27,12 @@
   * [Connect the app with the DB](#connect-the-app-with-the-db)
     + [Populate the cloudant DB](#populate-the-cloudant-db)
     + [Get teams information from cloudant to react app](#get-teams-information-from-cloudant-to-react-app)
+- [Part 3](#part-3)
+- [Part 4](#part-4)
+- [Part 5](#part-5)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 
 
 # Part 1
@@ -604,3 +608,11 @@ More information about cloudant can be found online. I recommend to have a look 
 
 
 
+# Part 3
+Show employee associated with a team
+
+# Part 4
+Add, Edit, Delete Operation with teams DB
+
+# Part 5
+Build and Deploy to Bluemix
