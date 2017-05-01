@@ -1,5 +1,21 @@
 # Organisation App Tutorial
 
+# Table Of Content
+- [Organisation App Tutorial](#organisation-app-tutorial)
+- [Pre requisite](#pre-requisite)
+- [Plan the app](#plan-the-app)
+- [Set up the Project](#set-up-the-project)
+  * [Create the project with create-react-app](#create-the-project-with-create-react-app)
+  * [Remove unecessary files](#remove-unecessary-files)
+  * [Install Material-ui](#install-material-ui)
+  * [Install React-FlexBox-Grid](#install-react-flexbox-grid)
+  * [Start the local server](#start-the-local-server)
+  * [Organize folder structure](#organize-folder-structure)
+- [Define Application Grid layout](#define-application-grid-layout)
+- [Create Header.js](#create-headerjs)
+- [Create a mock DB file with teams](#create-a-mock-db-file-with-teams)
+- [Display Teams](#display-teams)
+
 # Pre requisite
 - install node.js / npm
 - install create-react-app
