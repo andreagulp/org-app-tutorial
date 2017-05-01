@@ -1,36 +1,45 @@
 # Organisation App Tutorial
 
 # Table Of Content
-- [Pre requisite](#pre-requisite)
-- [Plan the app](#plan-the-app)
-- [Set up the Project](#set-up-the-project)
-  * [Create the project with create-react-app](#create-the-project-with-create-react-app)
-  * [Remove unecessary files](#remove-unecessary-files)
-  * [Install Material-ui](#install-material-ui)
-  * [Install React-FlexBox-Grid](#install-react-flexbox-grid)
-  * [Start the local server](#start-the-local-server)
-  * [Organize folder structure](#organize-folder-structure)
-- [Define Application Grid layout](#define-application-grid-layout)
-- [Create Header.js](#create-headerjs)
-- [Create a mock DB file with teams](#create-a-mock-db-file-with-teams)
-- [Display Teams](#display-teams)
-- [Implement onClick event that display the team detail](#implement-onclick-event-that-display-the-team-detail)
-  * [Implement selectedTeamId](#implement-selectedteamid)
-  * [Show Team Detail in a separate component](#show-team-detail-in-a-separate-component)
-- [Wrap up](#wrap-up)
-  * [Commit the code to GitHub](#commit-the-code-to-github)
+- [Part 1](#part-1)
+  * [Pre requisite](#pre-requisite)
+  * [Plan the app](#plan-the-app)
+  * [Set up the Project](#set-up-the-project)
+    + [Create the project with create-react-app](#create-the-project-with-create-react-app)
+    + [Remove unecessary files](#remove-unecessary-files)
+    + [Install Material-ui](#install-material-ui)
+    + [Install React-FlexBox-Grid](#install-react-flexbox-grid)
+    + [Start the local server](#start-the-local-server)
+    + [Organize folder structure](#organize-folder-structure)
+  * [Define Application Grid layout](#define-application-grid-layout)
+  * [Create Header.js](#create-headerjs)
+  * [Create a mock DB file with teams](#create-a-mock-db-file-with-teams)
+  * [Display Teams](#display-teams)
+  * [Implement onClick event that display the team detail](#implement-onclick-event-that-display-the-team-detail)
+    + [Implement selectedTeamId](#implement-selectedteamid)
+    + [Show Team Detail in a separate component](#show-team-detail-in-a-separate-component)
+  * [Wrap up](#wrap-up)
+    + [Commit the code to GitHub](#commit-the-code-to-github)
+- [Part 2](#part-2)
+  * [Set up the cloud environment](#set-up-the-cloud-environment)
+    + [Create an node app with cloudant](#create-an-node-app-with-cloudant)
+    + [Create Db Table for our App](#create-db-table-for-our-app)
+  * [Connect the app with the DB](#connect-the-app-with-the-db)
+    + [Populate the cloudant DB](#populate-the-cloudant-db)
+    + [Get teams information from cloudant to react app](#get-teams-information-from-cloudant-to-react-app)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
+
 # Part 1
 
-# Pre requisite
+## Pre requisite
 - install node.js / npm
 - install create-react-app
 - react dev tool as browser add on (chrome in this tutorial)
 - IDE for code editing with some support for react / jsx (e.g. atom, vs code, sublime, etc...)
 
-# Plan the app
+## Plan the app
 The Org App is a finctional company employee DB. 
 User can create new team and add team member to it. 
 Teams and team members will be added to a cloudant DB. 
@@ -42,19 +51,19 @@ Is usefull to sketch the app before moving forward, if nothing else it helps to 
 
 ![app sketch](https://github.com/andreagulp/JS-Playground/blob/master/reactjs/org-chart-app/img/20170501_002133.jpg "Logo Title Text 1")
 
-# Set up the Project
+## Set up the Project
 
-## Create the project with create-react-app
+### Create the project with create-react-app
 ```sh
 create-react-app org-chart-app
 ```
 
-## Remove unecessary files
+### Remove unecessary files
 in src folder just leave App.js and index.js. 
 Remove the references to deleted documents in both files. 
 
 
-## Install Material-ui
+### Install Material-ui
 Install material-ui 
 ```sh
 npm i --save material-ui react-tap-event-plugin
@@ -85,18 +94,18 @@ class App extends Component {
 export default App;
 ```
 
-## Install React-FlexBox-Grid
+### Install React-FlexBox-Grid
 Material ui will provide the style for our elements. FlexBox grid will give us the structure of the pages 
 ```sh
 npm install --save react-flexbox-grid
 ```
 
-## Start the local server
+### Start the local server
 ```sh
 npm start
 ```
 
-## Organize folder structure
+### Organize folder structure
 We will use the distincion between container and presentation components, so let's go ahead and create these folders. We will also move App.js inside containers folder (make sure you change the refence to App.js inside src/index.js. 
 
 ```
@@ -113,7 +122,7 @@ import App from './containers/App';
 ```
 
 
-# Define Application Grid layout
+## Define Application Grid layout
 I find it easier to start by defining the boxes where the element of the app will fit. 
 We will introduce flex box now. 
 
@@ -152,7 +161,7 @@ export default App;
 ```
 
 
-# Create Header.js
+## Create Header.js
 
 Our app will have an Header. We are using material ui App Bar. 
 Always remember to wire the components to our App.js container. 
@@ -216,7 +225,7 @@ class App extends Component {
 export default App;
 ```
 
-# Create a mock DB file with teams
+## Create a mock DB file with teams
 Let's create a file that will mock a db with teams and users information. 
 In later stage we will replace this mock with a real cloudant DB. 
 For the moment I just want to go ahead and create some other components before I start to work with a real DB and http calls. 
@@ -274,7 +283,7 @@ If you open Chrome devopers tool and select react, you can inspect the component
 ![chrome dev tool with react extension](https://github.com/andreagulp/org-app-tutorial/blob/master/images/2017-05-01%2002_52_08-React%20App.png)
 
 
-# Display Teams
+## Display Teams
 We will create a TeamList component and a Team component to display them. So let's create both file in components folder.
 
 in src/components/TeamList.js
@@ -339,7 +348,7 @@ import TeamList from '../components/TeamList';
  ```
  We are now displaying the teams in a list with some basic (but nice) style
 
-# Implement onClick event that display the team detail
+## Implement onClick event that display the team detail
 We want to allow the user to click a team card and display the team detail on the rigth side of the application.
 
 There are different way how to implement such a function. In my case the onClick event will setState selectedTeamId.
@@ -350,7 +359,7 @@ Steps:
 - fire a function that set the State for property selectedTeamId
 - in render we define a selectedTeam variable to store the selected object. We will pass this property to the component showing the details of team.
 
-## Implement selectedTeamId
+### Implement selectedTeamId
 How to build this in react:
 - in App.js add selectedTeamId to the state
 ```javascript
@@ -396,7 +405,7 @@ How to build this in react:
 ```
 Now you can see (in chrome react dev tools) that our new state property selectedTeamId, changes when we click to a new line.
 
-## Show Team Detail in a separate component
+### Show Team Detail in a separate component
 Now that we can get the ID of the selected object, we can create a variable to filter the selected object and pass it to TeamDetail.js
 
 - Create another component to hold the team detail. We will call it TeamDetail.js. After you have created an empty component import it in App.js
@@ -440,11 +449,11 @@ class TeamDetail extends Component {
 export default TeamDetail
 ```
 
-# Wrap up
+## Wrap up
 This concludes the first part of this tutorial.
 We have now an app that can display data from a file and user can select team card and visualize the detail now visible in the team list.
 
-## Commit the code to GitHub
+### Commit the code to GitHub
 Now that our first part is done, we will save the code in a github repository.
 
 More detailed instruction: <https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/> 
