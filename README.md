@@ -15,6 +15,7 @@
 - [Create Header.js](#create-headerjs)
 - [Create a mock DB file with teams](#create-a-mock-db-file-with-teams)
 - [Display Teams](#display-teams)
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 # Pre requisite
 - install node.js / npm
