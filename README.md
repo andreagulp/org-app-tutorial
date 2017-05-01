@@ -3,7 +3,7 @@
 # Pre requisite
 - install node.js / npm
 - install create-react-app
-- react dev tool as browser add on
+- react dev tool as browser add on (chrome in this tutorial)
 - IDE for code editing with some support for react / jsx (e.g. atom, vs code, sublime, etc...)
 
 # Plan the app
@@ -246,6 +246,8 @@ import TEAMS from '../data/teamsDB';
     }
   }
 ```
+If you open Chrome devopers tool and select react, you can inspect the component created and see if teams array is available.
+![chrome dev tool with react extension](https://github.com/andreagulp/org-app-tutorial/blob/master/images/2017-05-01%2002_52_08-React%20App.png)
 
 
 
