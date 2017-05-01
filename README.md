@@ -446,7 +446,27 @@ We have now an app that can display data from a file and user can select team ca
 ## Commit the code to GitHub
 Now that our first part is done, we will save the code in a github repository.
 
+More detailed instruction: <https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/> 
 
+First create a gitHub repo and call it org-app.
+Copy the addres from "Clone or Download".
+Your app is still running with ```npm start```, stop it by typing ctrl+c
+
+> If you need to remove a previous orogin (this will clean it and allow to store a new remote origin
+> ``` git remote rm origin ```
+
+Steps
+ 1. ``` git init ```
+ 2. ``` git add . ```
+ 3. ``` git commit -m "First commit" ```
+ 4. ``` git remote add origin <remote repository URL> ``` 
+ (e.g. ```git remote add origin https://github.com/andreagulp/org-app.git```)
+ 5. ``` git remote -v ```
+ 6. ``` git push origin master ```
+ 
+
+format of push command:
+``` git push  <REMOTENAME> <BRANCHNAME> ```
 
 
 
