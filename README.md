@@ -333,7 +333,115 @@ import TeamList from '../components/TeamList';
  We are now displaying the teams in a list with some basic (but nice) style
 
 # Implement onClick event that display the team detail
-We want to allow the user to click a team card and display the team detail on the left side of the application.
+We want to allow the user to click a team card and display the team detail on the rigth side of the application.
+
+There are different way how to implement such a function. In my case the onClick event will setState selectedTeamId.
+this new property of state will inform us on which team object is currently selected. We can use the information on a .filter to only show the details of the seleted object.
+
+Steps:
+- click on team element
+- fire a function that set the State for property selectedTeamId
+- in render we define a selectedTeam variable to store the selected object. We will pass this property to the component showing the details of team.
+
+## Implement selectedTeamId
+How to build this in react:
+- in App.js add selectedTeamId to the state
+```javascript
+    this.state = {
+      teams: TEAMS,
+      selectedTeamId: ''
+    }
+```
+- In App.js create a setSelectedTeamId method, that takes an ID and sets the state to that ID
+```javascript
+  setSelectedTeamId = (id) => {
+    this.setState({
+      selectedTeamId: id
+    })
+  }
+```
+- In App.js pass the method to TeamList
+```javascript
+            <Col xs={6} md={6}>
+              <TeamList
+                teams={this.state.teams}
+                setSelectedTeamId={this.setSelectedTeamId}
+              />
+            </Col>
+ ```
+ - In TeamList.js pass to Team setSelectedTeamId and also create a unique key based on the team ID that we will call for convinience index
+```javascript
+          <Team
+            key={team._id}
+            index={team._id}
+            team={team}
+            setSelectedTeamId={props.setSelectedTeamId}
+          />
+```
+- In Team.js add an onClick event
+```javascript
+          <ListItem
+            primaryText={this.props.team.name}
+            secondaryText={this.props.team.geo}
+            secondaryTextLines={1}
+            onClick={this.setSelectedTeamId}
+          />
+```
+Now you can see (in chrome react dev tools) that our new state property selectedTeamId, changes when we click to a new line.
+
+## Show Team Detail in a separate component
+Now that we can get the ID of the selected object, we can create a variable to filter the selected object and pass it to TeamDetail.js
+
+- Create another component to hold the team detail. We will call it TeamDetail.js. After you have created an empty component import it in App.js
+
+- Create a variable in App.js render method to filter our selected team. Note that you could create the selectedTeam as property of the state. However such an approach will not work becouse of the asynch nature of the react state.
+```javascript
+let selectedTeam = this.state.teams.filter(team => team._id === this.state.selectedTeamId)[0]
+```
+- In App.js pass the selectedTeam variable to TeamDetail component
+```javascript
+            <Col xs={6} md={6}>
+              <TeamDetail
+                selectedTeam={selectedTeam}
+              />
+            </Col>
+ ```
+ - Implement team detail. Is important to note that teamDetail component is suppose to show something that doesn't exist as soon as the state is initialized, in effect only after we click on something the TeamDetail will know which Team we want toi visualize. we need to add some conditional rendering to fix this issue
+```javascript
+import React, { Component } from 'react';
+
+class TeamDetail extends Component {
+
+  render () {
+    if (!this.props.selectedTeam) {
+      return (
+        <p>Select a Team to see the its details</p>
+      )
+    }
+    return (
+      <div>
+        <h3>{this.props.selectedTeam.name}</h3>
+        <p>{this.props.selectedTeam.geo}</p>
+        <p>{this.props.selectedTeam.market}</p>
+        <p>{this.props.selectedTeam.unit}</p>
+        <p>{this.props.selectedTeam.subUnit}</p>
+        <p>{this.props.selectedTeam.isActive}</p>
+      </div>
+    )
+  }
+};
+export default TeamDetail
+```
+
+# Wrap up
+This concludes the first part of this tutorial.
+We have now an app that can display data from a file and user can select team card and visualize the detail now visible in the team list.
+
+## Commit the code to GitHub
+Now that our first part is done, we will save the code in a github repository.
+
+
+
 
 
 
