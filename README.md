@@ -22,6 +22,7 @@
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
+# Part 1
 
 # Pre requisite
 - install node.js / npm
@@ -470,9 +471,34 @@ format of push command:
 
 
 
+# Part 2
+In the second part of the tutorial we will configure a cloudant DB and refactor our code to fetch data from cloudant
 
+## Set up the cloud environment
+We will use Bluemix.
+Get a free account at: https://www.ibm.com/cloud-computing/bluemix/ 
 
+### Create an node app with cloudant
+Steps:
+- login in bluemix
+- Create App
+- Choose SDK for Node.js
+- Enter a name (organisation-app-001) and create...application is starting
+- Once the app is up and running, go to *overview* and under connection *connect new*
+- Choose Cloundant NoSQL DB and create
+- Let's take also note of the credentials:
+ - Open the cloudant service and go to the tab "Service credentials"
+ - Click New Credential and add
+ - view credential and copy its content. We will use the URL
 
+Now you have a node server with a cloudant DB, almost ready for you to use.
 
+### Create Db Table for our App
+- On tab "Manage" , launch the DB
+
+We have already seen that our application uses a list of team. We create a db and call it *teams*.
+We also want to add team members to a team. So will create another DB called *employees*
+
+![cloudant dashboard](https://github.com/andreagulp/org-app-tutorial/blob/master/images/2017-05-01%2023_25_53-Cloudant%20Dashboard.png)
 
 
