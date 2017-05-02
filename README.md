@@ -752,9 +752,20 @@ render () {
 }
 ```
 
+Notice how we are hooking getEmployees() in componentDidMount. This is will make the employees DB load together with teams.
+We could use a different approach, for example we could fire getEmployees() only if a team is selected.
+
+At the end of each part (at least) commit the project in you github repo.
+
 
 # Part 4
 Add, Edit, Delete Operation with teams DB
 
 # Part 5
+Add, Edit, Delete Operation with employees DB
+
+# Part 6
+Add filters and search to employees and teams
+
+# Part 7
 Build and Deploy to Bluemix
