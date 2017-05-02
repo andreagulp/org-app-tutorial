@@ -614,6 +614,17 @@ More information about cloudant can be found online. I recommend to have a look 
 # Part 3
 Show employees associated with a team
 
+## Populate the data of the employee DB
+We have already created an employees db in the previous part of this tutorial.
+Now, similarly with teams DB, we are going to add some entries to test our application.
+
+Follow the instruction at:
+*[Populate the cloudant DB](#populate-the-cloudant-db)
+
+
+
+
+
 # Part 4
 Add, Edit, Delete Operation with teams DB
 
