@@ -584,7 +584,10 @@ If you try this code as it is, it will trown an error about CORS and authorizati
 Now our application works, if you reload the page after the component mounts, in the console log are visible the objects we are fetching.
 
 Next we will set the state of teams with the value from the DB. 
-Notice how we need to transform the data to get a decent array of object to work with. This is a very usual thing, the data from a DB never (or maybe rarely) really fit the best scenario we would like to work with in our app. For more insight, I recommend this brilliant article: https://hackernoon.com/avoiding-accidental-complexity-when-structuring-your-app-state-6e6d22ad5e2a
+Notice how we need to transform the data to get a decent array of object to work with. This is a very usual thing, the data from a DB never (or maybe rarely) really fit the best scenario we would like to work with in our app. For more insight, I recommend this brilliant article: https://hackernoon.com/avoiding-accidental-complexity-when-structuring-your-app-state-6e6d22ad5e2a.
+
+The way how to access the object in the call response, can be understood by looking at the ```response``` we logged with console.log.
+![response from api call](https://github.com/andreagulp/org-app-tutorial/blob/master/images/2017-05-02%2010_56_27-access-response-from-db.png)
 
 We are going to change our getTeams method:
 ```javascript
@@ -609,7 +612,7 @@ More information about cloudant can be found online. I recommend to have a look 
 
 
 # Part 3
-Show employee associated with a team
+Show employees associated with a team
 
 # Part 4
 Add, Edit, Delete Operation with teams DB
