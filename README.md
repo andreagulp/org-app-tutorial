@@ -621,8 +621,136 @@ Now, similarly with teams DB, we are going to add some entries to test our appli
 Follow the instruction at:
 *[Populate the cloudant DB](#populate-the-cloudant-db)
 
+Our employee object could look like something like this:
+```json
+"name": "andrea",
+"lastName": "bla bla bla",
+"teamID": "4f28ddcf7e734b608dd786f23409c2d3",
+"isFlm": false,
+"isIm": true,
+"role": "does something random",
+"fte": 1,
+"employeeAvatar": "http://semantic-ui.com/images/avatar/large/joe.jpg"
+```
+note that the teamID is our key to join the 2 tables (teams and employees). Create few more.
 
+## Create the necessary components for our list of employees associated with a team
 
+- In src/components/EmployeeList.js
+```javascript
+import React from 'react';
+import {List} from 'material-ui/List';
+import Employee from './Employee';
+
+const EmployeeList = (props) => {
+  return (
+    <List>
+      {props.selectedEmployees.map(employee => {
+        return (
+          <Employee
+            key={employee._id}
+            index={employee._id}
+            employee={employee}
+          />
+        )
+      })}
+    </List>
+  )
+};
+export default EmployeeList
+```
+
+- In src/components/Employee.js
+```javascript
+import React, { Component } from 'react';
+import Divider from 'material-ui/Divider';
+import {ListItem} from 'material-ui/List';
+import Avatar from 'material-ui/Avatar';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import {grey400} from 'material-ui/styles/colors';
+
+class Employee extends Component {
+
+  render () {
+
+    const iconButtonElement = (
+      <IconButton
+        touch={true}
+        tooltip="more"
+        tooltipPosition="bottom-left"
+      >
+        <MoreVertIcon color={grey400} />
+      </IconButton>
+    );
+
+    const rightIconMenu = (
+      <IconMenu iconButtonElement={iconButtonElement}>
+        <MenuItem onClick={this.props.completeTask}>Close</MenuItem>
+        <MenuItem onClick={this.props.editTask}>Edit</MenuItem>
+        <MenuItem onClick={this.props.deleteTask}>Delete</MenuItem>
+      </IconMenu>
+    );
+
+    return (
+        <div>
+          <ListItem
+            leftAvatar={<Avatar size={30} src={this.props.employee.employeeAvatar} />}
+            primaryText={this.props.employee.name + ' ' + this.props.employee.lastName}
+            secondaryText={this.props.employee.role}
+            secondaryTextLines={1}
+            rightIconButton={rightIconMenu}
+          />
+          <Divider />
+        </div>
+    )
+  }
+};
+export default Employee
+```
+- In src/containers/App.js
+```javascript
+import EmployeeList from '../components/EmployeeList';
+```
+```javascript
+  constructor (props) {
+    super (props);
+    this.state = {
+      teams: [],
+      selectedTeamId: '',
+      employees: []
+    }
+    this.apiUrlTeamRead = 'https://c5bffe6c-e9b8-4b1f-ab9d-a6fab371fc10-bluemix:92ef56d8ec3c2c9c3da557ccd9a5ea727d65aadbc64597d90aa26b4b3ecef127@c5bffe6c-e9b8-4b1f-ab9d-a6fab371fc10-bluemix.cloudant.com/teams/_all_docs?include_docs=true' // <== new line
+    this.apiUrlEmployeeRead = 'https://c5bffe6c-e9b8-4b1f-ab9d-a6fab371fc10-bluemix:92ef56d8ec3c2c9c3da557ccd9a5ea727d65aadbc64597d90aa26b4b3ecef127@c5bffe6c-e9b8-4b1f-ab9d-a6fab371fc10-bluemix.cloudant.com/employees/_all_docs?include_docs=true' // <== new line
+  }
+```
+
+```javascript
+  componentDidMount = () => {
+    this.getTeams()
+    this.getEmployees()
+    }
+```
+
+```javascript
+  getEmployees = () => {
+    axios.get(this.apiUrlEmployeeRead)
+    .then(response => {
+      console.log(response);
+      this.setState({
+        employees: response.data.rows.map(x => x.doc)
+      })
+    })
+  }
+```
+
+```javascript
+render () {
+    let selectedEmployees = this.state.employees.filter(employee => employee.teamID === this.state.selectedTeamId)
+}
+```
 
 
 # Part 4
