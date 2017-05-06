@@ -768,7 +768,179 @@ I will use a drop down menu that will allow only one selection, included "All" t
 There are different way how to achieve this.
 In case of one filter with a limited set of values, probably you can use a switch / if statement.
 However in our case is a bit different. There are some requirements I feel are important to implement right:
- - We want to have multiple filter. Each filter 
+ - We want to have multiple filters. Each filter will need to cumulate with the previous
+ - our first 2 filters are about geo and group of countries. It could be a long list and tedious to maintain.
+ - If the user select a geo, we want only to show the market part of that specific geo.
+ 
+First step will be to create the UI for the filters. We will use dropdown menu for both geo and market filter. We will create a generic dropdown component and reuse it as needed.
+
+- in src/data/geographyFilterValues.js
+```javascript
+const geographyFilterValues = [
+  {
+    geo: 'ALL',
+    market: [
+      'ALL',
+      'Italy',
+      'France',
+      'Germany',
+      'Spain',
+      'USA',
+      'Canada',
+      'Brasil',
+      'Mexico'
+    ]
+  },
+  {
+    geo: 'EMEA',
+    market: [
+      'ALL',
+      'Italy',
+      'France',
+      'Germany',
+      'Spain'
+    ]
+  },
+  {
+    geo: 'AMERICAS',
+    market: [
+      'ALL',
+      'USA',
+      'Canada',
+      'Brasil',
+      'Mexico'
+    ]
+  },
+]
+
+export default geographyFilterValues
+```
+
+the geographyFilterValues will be used to populate our dropdown menu.
+
+- In src/App.js add 4 more properties to our state. Don't forget to import geographyFilterValues
+```javascript
+import geographyFilterValues from '../data/geographyFilterValues';
+```
+```javascript
+    this.state = {
+      teams: [],
+      filteredTeams: [],
+      selectedTeamId: '',
+      employees: [],
+      teamGeoFilter: geographyFilterValues.map(value => value.geo),
+      teamMarketFilter: geographyFilterValues,
+      selectedTeamGeoFilter: 'ALL',
+      selectedTeamMarketFilter: 'ALL',
+      searchTeam: ''
+    }
+```
+
+Note how we are passing the full array to market filter. The reason is to be able to filter this menu based on the selction of geo.
+
+Now let's create our filter component that we will reuse when a dropdown filter is needed.
+
+- In src/component/DropDownFilter.js
+```javascript
+import React from 'react';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+
+const DropDownFilter = (props) => {
+  return (
+    <SelectField
+      floatingLabelText="Filter by Geo"
+      onChange={props.filterHandleChange}
+      value={props.filterSelectedValue}
+    >
+      {props.filterOptionValues.map((filter, i) => <MenuItem key={i} value={filter} primaryText={filter} />)}
+    </SelectField>
+  )
+};
+export default DropDownFilter
+```
+
+Now let's add it to our app and wire it with the value we need.
+
+- In src/containers/App.js
+```javascript
+import DropDownFilter from '../components/DropDownFilter';
+```
+
+```javascript
+    <Row>
+      <Col xs={6} md={6}>
+        <DropDownFilter // Geo Filter
+        />
+      </Col>
+      <Col xs={6} md={6}>
+        <DropDownFilter // Market Filter
+        />
+      </Col>
+    </Row>
+```
+
+Now, still in App.js, we need a method to handle the changes in the filter and assigne the selected value to a state property
+
+```javascript
+  handleChangeTeamGeoFilter = (event, index, value) => this.setState({selectedTeamGeoFilter: value, selectedTeamMarketFilter: 'ALL'})
+  handleChangeTeamMarketFilter = (event, index, value) => this.setState({selectedTeamMarketFilter: value})
+```
+
+Note how ```handleChangeTeamGeoFilter``` also sets the state of market filter to 'ALL'. This is needed so if the users changes the selection geo after a market was selected, the previous market selection will be reset to default value.
+
+Now is time to write our method to filter the list. This method needs to have a way how to handle 'ALL' and also needs to consider that both filters could be applied to the same list progressively.
+
+```javascript
+  filterList = () => {
+    let visibleTeams = [];
+
+    if (this.state.selectedTeamGeoFilter === 'ALL') {
+      visibleTeams = this.state.teams;
+    } else {visibleTeams = this.state.teams.filter(item => item.geo === this.state.selectedTeamGeoFilter)}
+
+    if (this.state.selectedTeamMarketFilter === 'ALL') {
+      visibleTeams = visibleTeams
+    } else {
+      visibleTeams = this.state.teams.filter(item => item.market === this.state.selectedTeamMarketFilter)
+    }
+    return visibleTeams
+}
+```
+
+Now that the core part of our filter is done, let's moveto render method for the last refinement.
+First of all, remember that our market list, returns a full array. so now is the time to adjust it for our purpose
+```javascript
+let filteredTeamMarketFilter = this.state.teamMarketFilter.filter(x => x.geo === this.state.selectedTeamGeoFilter)[0].market
+```
+
+then we pass the needed props to our dropdowns
+```javascript
+    <Col xs={6} md={6}>
+      <DropDownFilter // Geo Filter
+        filterOptionValues={this.state.teamGeoFilter}
+        filterHandleChange={this.handleChangeTeamGeoFilter}
+        filterSelectedValue={this.state.selectedTeamGeoFilter}
+      />
+    </Col>
+    <Col xs={6} md={6}>
+      <DropDownFilter // Market Filter
+        filterOptionValues={filteredTeamMarketFilter}
+        filterHandleChange={this.handleChangeTeamMarketFilter}
+        filterSelectedValue={this.state.selectedTeamMarketFilter}
+      />
+    </Col>
+ ```
+ 
+Finally, we also change TeamList props, to consider the eventual filteres result
+```javascript
+    <TeamList
+      teams={this.filterList()}
+      setSelectedTeamId={this.setSelectedTeamId}
+    />
+```
+
+Done. Save everything and we will have 2 filters for our team list.
 
 # Part 5
 Add, Edit, Delete Operation with teams DB
