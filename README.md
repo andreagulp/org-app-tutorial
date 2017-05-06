@@ -760,87 +760,15 @@ At the end of each part (at least) commit the project in you github repo.
 # Part 4
 Add filters and search to employees and teams
 
-## Create TeamFilters component
+## Create TeamFilters component 
 We will create some basic filter to help the user of our app to filter the teams by geography.
 To start I have added few more team to my cloudant DB with different geos, just to be able to test the filter.
 I will use a drop down menu that will allow only one selection, included "All" to effectively remove any filter.
 
-In src/components/TeamFilters.js
-```javascript
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-
-class TeamFilters extends Component {
-
-  render () {
-    return (
-          <SelectField
-            floatingLabelText="Filter by Geo"
-            onChange={this.props.handleChangeTeamGeoFilter}
-            value={this.props.selectedTeamGeoFilter}
-          >
-            {this.props.teamGeoFilter.map((filter, i) => <MenuItem key={i} value={i} primaryText={filter} />)}
-
-          </SelectField>
-    )
-  }
-};
-export default TeamFilters
-```
-
-in src/containers/App.js
-
-- import TeamFilter
-```javascript
-import TeamFilters from '../components/TeamFilters';
-```
-
-- Add 2 more properties to our state
-```javascript
-      selectedTeamGeoFilter: null,
-      teamGeoFilter: ['All', 'EMEA', 'AMERICAS', 'AP']
-```
-- Include a method to handle the change of the dropdown menu.
-```javascript
-handleChangeTeamGeoFilter = (event, index, value) => this.setState({selectedTeamGeoFilter: value})
-```
-- Inside the render method define a variable that will filter the teams based on filter selected. It will use switch case.
-```javascript
-    // Filters
-    let visibleTeams = []
-    switch (this.state.selectedTeamGeoFilter) {
-      case 0: //All
-        visibleTeams = this.state.teams
-        break;
-      case 1: // EMEA
-        visibleTeams = this.state.teams.filter(team => team.geo === 'EMEA')
-        break;
-      case 2: // AMERICAS
-        visibleTeams = this.state.teams.filter(team => team.geo === 'AMERICAS')
-        break;
-      case 3: // AP
-        visibleTeams = this.state.teams.filter(team => team.geo === 'AP')
-        break;
-      default:
-        visibleTeams = this.state.teams
-    }
-```
-- Replace the props passed to TeamList component with this newly created variable
-```javascript
-   <TeamList
-     teams={visibleTeams}
-     setSelectedTeamId={this.setSelectedTeamId}
-   />
-```
-
-- Add TeamFilter to render
-```javascript
-    <TeamFilters
-      teamGeoFilter={this.state.teamGeoFilter}
-      handleChangeTeamGeoFilter={this.handleChangeTeamGeoFilter}
-      selectedTeamGeoFilter={this.state.selectedTeamGeoFilter}
-    />
- ```
+There are different way how to achieve this.
+In case of one filter with a limited set of values, probably you can use a switch / if statement.
+However in our case is a bit different. There are some requirements I feel are important to implement right:
+ - We want to have multiple filter. Each filter 
 
 # Part 5
 Add, Edit, Delete Operation with teams DB
