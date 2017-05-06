@@ -946,7 +946,7 @@ Finally, we also change TeamList props, to consider the eventual filteres result
 
 Done. Save everything and we will have 2 filters for our team list.
 And this is a screenshot of the app so far:
-![screen shot of the app at the end of part4] (https://github.com/andreagulp/org-app-tutorial/blob/master/images/2017-05-06%2018_13_12-React%20App.png)
+![screen shot of the app at the end of part4](https://github.com/andreagulp/org-app-tutorial/blob/master/images/2017-05-06%2018_13_12-React%20App.png)
 
 # Part 5
 Add, Edit, Delete Operation with teams DB
