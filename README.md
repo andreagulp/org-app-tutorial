@@ -28,11 +28,15 @@
     + [Populate the cloudant DB](#populate-the-cloudant-db)
     + [Get teams information from cloudant to react app](#get-teams-information-from-cloudant-to-react-app)
 - [Part 3](#part-3)
+  * [Populate the data of the employee DB](#populate-the-data-of-the-employee-db)
+  * [Create the necessary components for our list of employees associated with a team](#create-the-necessary-components-for-our-list-of-employees-associated-with-a-team)
 - [Part 4](#part-4)
+  * [Create TeamFilters component](#create-teamfilters-component)
 - [Part 5](#part-5)
+- [Part 6](#part-6)
+- [Part 7](#part-7)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 
 
 # Part 1
