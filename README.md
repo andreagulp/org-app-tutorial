@@ -951,6 +951,18 @@ And this is a screenshot of the app so far:
 # Part 5
 Add, Edit, Delete Operation with teams DB
 
+We want to allow the app user to add new teams (and later also new employee to a team).
+We will use material-ui dialog window to show the form.
+We need few things in order to achieve this:
+ - a dialog component that will host our form
+ - a method to open and close the form dialog, including properties in the state to store the if open or closed
+ - a form to allow the user to enter team details
+ - action button to perform CRUD operation and methods associated
+ - the method enablingthe CRUD operation will connect to cloudant with axios
+
+## Create Dialog
+
+
 # Part 6
 Add, Edit, Delete Operation with employees DB
 
