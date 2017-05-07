@@ -961,7 +961,123 @@ We need few things in order to achieve this:
  - the method enablingthe CRUD operation will connect to cloudant with axios
 
 ## Create Dialog
+We will have our dialog containing a form to add a new team.
+Use the dialog component from material-ui and add to App.js
+```javascript
+          <Dialog
+            open={this.state.dialogIsOpen}
+            title="Add Team"
+            modal={false}
+            onRequestClose={this.closeDialog}
+            autoScrollBodyContent={true}
+          >
+            <AddTeamForm />
+          </Dialog>
+```
 
+Notice how the dialog contains ```<AddTeamForm>```. That's our component containing the input forms.
+Now let's create a new component called AddTeamForm. This component will contain other reusable components like inputText, text area, dropdownmenu, etc.
+
+Start to create the an field input text to enter the name of the team.
+```javascript
+import React from 'react';
+import TextField from 'material-ui/TextField';
+
+const InputTextForm = (props) => {
+  return (
+    <TextField
+      hintText="Team Name"
+      floatingLabelText="Team Name"
+    />
+  )
+};
+export default InputTextForm
+```
+put this InputTextForm in our addTeamForm component
+```javascript
+import React from 'react';
+import { Row, Col } from 'react-flexbox-grid';
+import InputTextForm from './InputTextForm';
+
+const AddTeamForm = (props) => {
+  return (
+  <div>
+    <Row>
+      <Col xs={6} md={6}>
+        <InputTextForm />
+      </Col>
+    </Row>
+  </div>
+  )
+};
+export default AddTeamForm
+```
+The dialog now contains a form with one input text field. However, even if this is true you will not be able to test it. First we need a way how to open the dialog.
+We have reserved a space in our header that we created in part 1 of this tutorial. We added a ```<MoreVertIcon />``` that we will use to open the dialog.
+
+First. let's create a property in our state that will store the a bolean to tell if the dialog is open or closed. Give a default value of ```false```
+```javascript
+      dialogIsOpen: false
+```
+
+Second, create 2 method: 1 to open and one to close the dialog
+```javascript
+  openDialog = () => {
+    this.setState({dialogIsOpen: true})
+  }
+  closeDialog = () => {
+    this.setState({dialogIsOpen:false})
+  }
+```
+
+```javascript
+import React from 'react';
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+
+const Header = (props) => {
+  return (
+  <AppBar
+    title="Organization App"
+    showMenuIconButton={false}
+    iconElementRight={
+      <IconMenu
+        iconButtonElement={
+          <IconButton
+            touch={true}
+            tooltip="actions"
+            tooltipPosition="bottom-left"
+          >
+            <MoreVertIcon />
+          </IconButton>
+        }
+      >
+        <MenuItem
+          primaryText="Add New Team"
+          onClick={props.openDialog}
+        />
+        <MenuItem primaryText="Action 2" />
+        <MenuItem primaryText="Action 3" />
+      </IconMenu>
+    }
+  />
+  )
+};
+export default Header
+```
+
+Now we are ready to test our application to see if it works.
+Note that when you click outside the dialog the window closes, that's thanks to the props we passed to dialog ```onRequestClose={this.closeDialog}```
+
+## Create the form component
+We have already created one input field in the previous section. To create the rest of the form is basically going to be the same.
+
+To control an input field we could either use ```refs``` or controlled component. We will use controlled component.
+A controlled component requires a method to get the value in the input field as the input field changes (onChange).
+Because our form will have multiple input, we could end up writing a method for each field. That can be done, however it will make our App.js a bit big. So Let's try to use an high order function that will have the duty to take a value, an identifier of the form field and set the state of corresponding new input field value. Thta's confusing? Just follow the code below.
 
 # Part 6
 Add, Edit, Delete Operation with employees DB
